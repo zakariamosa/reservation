@@ -61,16 +61,6 @@ stage('Smoke test') {
   }
 }
 
-  post {
-    always {
-      sh """
-        docker rm -f smoke-web smoke-items || true
-        docker volume rm menuvol-${BUILD_NUMBER} || true
-      """
-    }
-  }
-}
-
     stage('Push images') {
       steps {
         sh """
