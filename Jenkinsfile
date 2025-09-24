@@ -27,13 +27,13 @@ pipeline {
       }
     }
 
-    stage('Smoke test') {
+stage('Smoke test') {
   steps {
     sh """
       set -e
       VOL=menuvol-${BUILD_NUMBER}
 
-      # create a named volume shared by both containers
+      # shared volume
       docker volume create $VOL
 
       echo 'Starting items sidecar...'
@@ -42,16 +42,25 @@ pipeline {
       echo 'Starting web...'
       docker run --rm -d --name smoke-web -p 18080:80 -v $VOL:/items ${APP_IMG}:${TAG}
 
-      echo 'Wait a bit for NGINX...'
+      echo 'Wait a bit...'
       sleep 3
 
-      echo 'HTTP checks...'
+      # from inside Jenkins container, reach host port via host.docker.internal
       curl -sSf http://host.docker.internal:18080/ >/dev/null
       curl -sSf http://host.docker.internal:18080/listofitems.txt >/dev/null
-
       echo 'OK'
     """
   }
+  post {
+    always {
+      sh """
+        docker rm -f smoke-web smoke-items || true
+        docker volume rm menuvol-${BUILD_NUMBER} || true
+      """
+    }
+  }
+}
+
   post {
     always {
       sh """
