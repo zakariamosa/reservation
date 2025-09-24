@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    image: reservation-app:v2
+    container_name: reservation-web
+    ports:
+      - "8080:80"
+    volumes:
+      - menuvol:/items  # mount shared volume at /items for nginx alias
+    depends_on:
+      - items
+
+  items:
+    build:
+      context: ./items
+    image: reservation-items:v1
+    container_name: reservation-items
+    volumes:
+      - menuvol:/items  # writes listofitems.txt here
+
+volumes:
+  menuvol:

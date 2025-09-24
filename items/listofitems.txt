@@ -1,0 +1,14 @@
+## Sample list of items for the reservation system
+## Each line contains a category followed by a separator and the item name.
+## Supported separators are comma (,), pipe (|), dash (-) or semicolon (;).
+## For example: dishes|Falafel Dish
+## If no separator is found the entire line is treated as both the category and item name.
+
+dishes|Falafel Dish
+dishes|Nacho
+dishes|Burger
+wraps|Chicken Wrap
+wraps|Falafel Wrap
+drinks|Lemonade
+drinks|Water
+drinks|Soda
