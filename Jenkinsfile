@@ -28,22 +28,39 @@ pipeline {
     }
 
     stage('Smoke test') {
-      steps {
-        sh """
-          echo 'Running smoke test...'
-          docker run --rm -d --name smoke-items ${ITEMS_IMG}:${TAG}
-          docker run --rm -d --name smoke-web -p 18080:80 --volumes-from smoke-items ${APP_IMG}:${TAG}
-          sleep 3
-          curl -sSf http://localhost:18080/ >/dev/null
-          curl -sSf http://localhost:18080/listofitems.txt >/dev/null
-        """
-      }
-      post {
-        always {
-          sh "docker rm -f smoke-web smoke-items || true"
-        }
-      }
+  steps {
+    sh """
+      set -e
+      VOL=menuvol-${BUILD_NUMBER}
+
+      # create a named volume shared by both containers
+      docker volume create $VOL
+
+      echo 'Starting items sidecar...'
+      docker run --rm -d --name smoke-items -v $VOL:/items ${ITEMS_IMG}:${TAG}
+
+      echo 'Starting web...'
+      docker run --rm -d --name smoke-web -p 18080:80 -v $VOL:/items ${APP_IMG}:${TAG}
+
+      echo 'Wait a bit for NGINX...'
+      sleep 3
+
+      echo 'HTTP checks...'
+      curl -sSf http://host.docker.internal:18080/ >/dev/null
+      curl -sSf http://host.docker.internal:18080/listofitems.txt >/dev/null
+
+      echo 'OK'
+    """
+  }
+  post {
+    always {
+      sh """
+        docker rm -f smoke-web smoke-items || true
+        docker volume rm menuvol-${BUILD_NUMBER} || true
+      """
     }
+  }
+}
 
     stage('Push images') {
       steps {
