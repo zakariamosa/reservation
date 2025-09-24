@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservation Ordering System</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Reservation Ordering System</h1>
+      <nav>
+        <!-- Link to open the kitchen display in a new tab -->
+        <a href="display.html" target="_blank">Kitchen Display</a>
+      </nav>
+    </header>
+    <main>
+      <!-- Section to create a new reservation -->
+      <section id="reservation-section">
+        <h2>Create Reservation</h2>
+        <form id="reservation-form">
+          <label for="reservation-number">Reservation&nbsp;#</label>
+          <input
+            type="text"
+            id="reservation-number"
+            placeholder="Enter reservation number"
+            required
+            autocomplete="off"
+          />
+          <button type="submit">Start Order</button>
+        </form>
+        <p id="reservation-message" class="message"></p>
+      </section>
+      <!-- Section to show menu buttons once a reservation is started -->
+      <section id="menu-section" class="hidden">
+        <h2>Menu Items</h2>
+        <!-- Dynamic menu buttons will be injected here -->
+        <div id="menu-buttons"></div>
+        <!-- Form to allow adding a new item to the menu dynamically -->
+        <div id="add-item">
+          <h3>Add New Item</h3>
+          <input type="text" id="new-category" placeholder="Category" />
+          <input type="text" id="new-item-name" placeholder="Item Name" />
+          <button id="add-item-button">Add Item</button>
+        </div>
+      </section>
+      <!-- Section to show the current order summary -->
+      <section id="order-section" class="hidden">
+        <h2>Current Order</h2>
+        <div id="order-summary"></div>
+        <div id="order-actions" class="actions">
+          <button id="submit-order-button">Submit Order</button>
+          <button id="clear-order-button">Clear Order</button>
+        </div>
+        <p id="order-message" class="message"></p>
+      </section>
+    </main>
+  </body>
+</html>

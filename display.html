@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kitchen Display</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="display.js" defer></script>
+  </head>
+  <!-- The display page uses a separate layout and larger fonts to aid kitchen staff -->
+  <body class="display">
+    <header>
+      <h1>Kitchen Display</h1>
+      <nav>
+        <!-- Link back to the ordering interface -->
+        <a href="index.html">Back to Order Entry</a>
+      </nav>
+    </header>
+    <main>
+      <section id="orders-section">
+        <h2>Current Orders</h2>
+        <button id="refresh-button" class="refresh">Refresh</button>
+        <div id="orders-list"></div>
+      </section>
+      <section id="batch-section">
+        <h2>Batch Summary</h2>
+        <button id="batch-button" class="batch">Combine Selected</button>
+        <div id="batch-summary"></div>
+      </section>
+    </main>
+  </body>
+</html>

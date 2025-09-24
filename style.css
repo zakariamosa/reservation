@@ -1,0 +1,366 @@
+/* Base styles for the reservation ordering application */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  line-height: 1.5;
+}
+
+header {
+  background: #2c3e50;
+  color: #fff;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+header nav a {
+  color: #fff;
+  text-decoration: none;
+  border: 2px solid #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+header nav a:hover {
+  background: #fff;
+  color: #2c3e50;
+}
+
+main {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 2rem;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+  margin-top: 0;
+  color: #2c3e50;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+.message {
+  color: #27ae60;
+  margin-top: 0.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Reservation form */
+#reservation-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+#reservation-form input[type="text"] {
+  flex: 1 1 auto;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#reservation-form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #3498db;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#reservation-form button:hover {
+  background: #2980b9;
+}
+
+/* Menu section */
+#menu-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.category {
+  flex: 1 1 100%;
+  margin-bottom: 1rem;
+}
+
+.category h3 {
+  margin: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: #34495e;
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-buttons button {
+  padding: 0.45rem 0.9rem;
+  border: none;
+  border-radius: 4px;
+  background: #3498db;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.category-buttons button:hover {
+  background: #2980b9;
+}
+
+#add-item {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+#add-item h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #34495e;
+}
+
+#add-item input {
+  margin-right: 0.5rem;
+  padding: 0.45rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#add-item button {
+  padding: 0.45rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #2ecc71;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#add-item button:hover {
+  background: #27ae60;
+}
+
+/* Order section */
+#order-summary table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#order-summary th,
+#order-summary td {
+  padding: 0.6rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+#order-summary th {
+  background: #ecf0f1;
+  font-weight: 600;
+}
+
+#order-summary tr:last-child td {
+  border-bottom: none;
+}
+
+#order-summary button {
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 0.85rem;
+  margin-right: 0.2rem;
+}
+
+#order-summary button.increase {
+  background: #2ecc71;
+}
+
+#order-summary button.decrease {
+  background: #f1c40f;
+  color: #fff;
+}
+
+#order-summary button:hover {
+  opacity: 0.85;
+}
+
+.actions {
+  margin-top: 1rem;
+}
+
+.actions button {
+  padding: 0.6rem 1.2rem;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+#submit-order-button {
+  background: #27ae60;
+  color: #fff;
+}
+
+#submit-order-button:hover {
+  background: #1e8449;
+}
+
+#clear-order-button {
+  background: #e74c3c;
+  color: #fff;
+}
+
+#clear-order-button:hover {
+  background: #c0392b;
+}
+
+/*
+ * Styles specific to the kitchen display page. These rules apply
+ * when the <body> element has the `display` class. They enlarge
+ * fonts and adjust layout for better readability from a distance.
+ */
+.display header {
+  background: #27ae60;
+}
+
+.display header nav a {
+  border-color: #fff;
+}
+
+.display main {
+  max-width: 1400px;
+}
+
+.display section {
+  background: #fff;
+}
+
+.display h1 {
+  font-size: 2rem;
+}
+
+.display h2 {
+  font-size: 1.5rem;
+}
+
+/* Orders list on display page */
+.display .order {
+  border: 2px solid #ecf0f1;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: #fdfdfd;
+  font-size: 1.2rem;
+}
+
+.display .order-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.display .order-header .res-number {
+  font-weight: bold;
+  flex-grow: 1;
+}
+
+.display .order-header button.complete {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.display .order-header button.complete:hover {
+  background: #c0392b;
+}
+
+.display .order-items {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.display .order-items li {
+  margin-bottom: 0.3rem;
+}
+
+/* Batch summary table */
+.display #batch-summary table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.display #batch-summary th,
+.display #batch-summary td {
+  padding: 0.6rem;
+  border-bottom: 1px solid #eee;
+}
+
+.display #batch-summary th {
+  background: #ecf0f1;
+  font-weight: 600;
+}
+
+.display #batch-summary tr:last-child td {
+  border-bottom: none;
+}
+
+.display button.refresh,
+.display button.batch {
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  transition: background 0.2s;
+}
+
+.display button.refresh:hover,
+.display button.batch:hover {
+  background: #2980b9;
+}
