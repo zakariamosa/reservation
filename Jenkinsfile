@@ -76,29 +76,31 @@ pipeline {
       }
     }
 	
-	stage('Update menu (ConfigMap)') {
+stage('Update menu (ConfigMap)') {
   steps {
     sh '''
       set -e
 
-      # 1) compute checksum of the file so we only restart when it changes
+      # 1) compute checksum (only restart when content changes)
       NEW_HASH=$(sha256sum items/listofitems.txt | awk '{print $1}')
       echo "New list hash: $NEW_HASH"
 
-      # 2) upsert ConfigMap from the file
+      # 2) upsert ConfigMap from file
       kubectl -n reservation create configmap items-config \
         --from-file=items/listofitems.txt \
         --dry-run=client -o yaml | kubectl apply -f -
 
-      # 3) annotate Deployment with checksum; changing the annotation triggers a rollout automatically
-      kubectl -n reservation annotate deploy/reservation \
-        menu-hash="$NEW_HASH" --overwrite
+      # 3) PATCH the *pod template* annotation (this triggers a rollout)
+      kubectl -n reservation patch deploy reservation \
+        --type=merge \
+        -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"menu-hash\":\"$NEW_HASH\"}}}}}"
 
       # 4) wait for rollout
       kubectl -n reservation rollout status deploy/reservation --timeout=60s
     '''
   }
 }
+
 
   }
 }
