@@ -12,3 +12,4 @@ wraps|Falafel Wrap
 drinks|Lemonade
 drinks|Water
 drinks|Soda
+dishes|Fajta

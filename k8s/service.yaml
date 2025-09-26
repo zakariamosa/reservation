@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: reservation
+  namespace: reservation
+spec:
+  type: NodePort
+  selector:
+    app: reservation
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      nodePort: 30080   # reachable on Windows host at http://localhost:30080

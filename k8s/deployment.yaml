@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation
+  namespace: reservation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reservation
+  template:
+    metadata:
+      labels:
+        app: reservation
+    spec:
+      volumes:
+        - name: items-shared
+          emptyDir: {}
+      initContainers:
+        - name: items-init
+          image: reservation-items:5            # <- local image tag you retagged
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh","-c"]
+          args:
+            - |
+              mkdir -p /items && cp /seed/listofitems.txt /items/listofitems.txt && ls -l /items
+          volumeMounts:
+            - name: items-shared
+              mountPath: /items
+      containers:
+        - name: web
+          image: reservation-app:5              # <- local image tag you retagged
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: items-shared
+              mountPath: /items
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
