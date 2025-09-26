@@ -81,25 +81,27 @@ stage('Update menu (ConfigMap)') {
     sh '''
       set -e
 
-      # 1) compute checksum (only restart when content changes)
+      # 1) compute checksum
       NEW_HASH=$(sha256sum items/listofitems.txt | awk '{print $1}')
       echo "New list hash: $NEW_HASH"
 
-      # 2) upsert ConfigMap from file
+      # 2) upsert ConfigMap from the file
       kubectl -n reservation create configmap items-config \
         --from-file=items/listofitems.txt \
         --dry-run=client -o yaml | kubectl apply -f -
 
-      # 3) PATCH the *pod template* annotation (this triggers a rollout)
-      kubectl -n reservation patch deploy reservation \
-        --type=merge \
-        -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"menu-hash\":\"$NEW_HASH\"}}}}}"
+      # 3) PATCH the *pod template* annotation (triggers rollout)
+      cat > patch.json <<EOF
+{"spec":{"template":{"metadata":{"annotations":{"menu-hash":"$NEW_HASH"}}}}}
+EOF
+      kubectl -n reservation patch deploy reservation --type=merge --patch-file=patch.json
 
       # 4) wait for rollout
       kubectl -n reservation rollout status deploy/reservation --timeout=60s
     '''
   }
 }
+
 
 
   }
