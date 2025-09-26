@@ -15,3 +15,4 @@ drinks|Soda
 dishes|Fajta
 dishes|Barn meny
 drinks|pepsi max
+drinks|cola zero

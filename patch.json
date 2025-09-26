@@ -1,0 +1,11 @@
+{
+  "spec": {
+    "template": {
+      "metadata": {
+        "annotations": {
+          "menu-hash": "manual-test-1"
+        }
+      }
+    }
+  }
+}
