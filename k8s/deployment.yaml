@@ -15,21 +15,14 @@ spec:
     spec:
       volumes:
         - name: items-shared
-          emptyDir: {}
-      initContainers:
-        - name: items-init
-          image: reservation-items:5            # <- local image tag you retagged
-          imagePullPolicy: IfNotPresent
-          command: ["/bin/sh","-c"]
-          args:
-            - |
-              mkdir -p /items && cp /seed/listofitems.txt /items/listofitems.txt && ls -l /items
-          volumeMounts:
-            - name: items-shared
-              mountPath: /items
+          configMap:
+            name: items-config
+            items:
+              - key: listofitems.txt
+                path: listofitems.txt
       containers:
         - name: web
-          image: reservation-app:5              # <- local image tag you retagged
+          image: reservation-app:5         # keep your working tag
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
@@ -37,14 +30,10 @@ spec:
             - name: items-shared
               mountPath: /items
           readinessProbe:
-            httpGet:
-              path: /
-              port: 80
+            httpGet: { path: /, port: 80 }
             initialDelaySeconds: 3
             periodSeconds: 5
           livenessProbe:
-            httpGet:
-              path: /
-              port: 80
+            httpGet: { path: /, port: 80 }
             initialDelaySeconds: 10
             periodSeconds: 10

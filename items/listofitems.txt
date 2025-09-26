@@ -13,3 +13,4 @@ drinks|Lemonade
 drinks|Water
 drinks|Soda
 dishes|Fajta
+dishes|Barn meny
