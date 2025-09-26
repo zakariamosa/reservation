@@ -17,3 +17,4 @@ dishes|Barn meny
 drinks|pepsi max
 drinks|cola zero
 drinks|zinga zero
+wraps|aubergini Wrap
