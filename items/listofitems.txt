@@ -14,3 +14,4 @@ drinks|Water
 drinks|Soda
 dishes|Fajta
 dishes|Barn meny
+drinks|pepsi max
