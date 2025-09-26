@@ -6,6 +6,7 @@ pipeline {
     APP_IMG    = "${REGISTRY}/reservation-app"
     ITEMS_IMG  = "${REGISTRY}/reservation-items"
     TAG        = "${env.BUILD_NUMBER ?: 'local'}"
+	KUBECONFIG = '/var/jenkins_home/.kube/config'
   }
 
   options {
